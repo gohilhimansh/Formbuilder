@@ -1,0 +1,74 @@
+﻿<!-- Order Add / Edit Modal -->
+<div class="modal fade" id="orderModal" tabindex="-1" aria-labelledby="orderModalLabel" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header modal-header-custom">
+                <h5 class="modal-title fw-bold" id="orderModalLabel">
+                    <i class="fa-solid fa-file-circle-plus me-2"></i><span id="modalHeaderTitle">New Order</span>
+                </h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form id="formForm" autocomplete="off" novalidate>
+                <div class="modal-body p-4">
+                    <input type="hidden" id="FormId" name="FormId" value="0" />
+
+                    <!-- Customer Information Section -->
+                    <div class="card card-custom mb-4 bg-light border-0">
+                        <div class="card-body">
+                            <h6 class="fw-bold text-primary mb-3">
+                                <i class="fa-solid fa-user-tag me-2"></i>Form Information
+                            </h6>
+                            <div class="row g-3">
+                               
+                                <div class="col-md-4">
+                                    <label for="FormName" class="form-label fw-medium">Form Name <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" id="FormName" name="FormName" placeholder="Enter Form name" required />
+                                    </div>
+                                    <div class="invalid-feedback">Please enter Form name.</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Order Line Items Section -->
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <h6 class="fw-bold text-primary m-0">
+                            Form Filed List
+                        </h6>
+                        <button type="button" id="btnAddItem" class="btn btn-outline-primary btn-sm rounded-pill px-3 fw-semibold">
+                            <i class="fa-solid fa-plus me-1"></i> Add Item
+                        </button>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-bordered align-middle item-table" id="itemsTable">
+                            <thead class="table-light">
+                                <tr>
+                                    <th style="width: 25%;">Filed Name<span class="text-danger">*</span></th>
+                                    <th style="width: 12%;">Optional Title <span class="text-danger">*</span></th>
+                                    <th style="width: 13%;">Isrequired</th>
+                                    <th style="width: 5%; text-align: center;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="itemsTableBody">
+                                <!-- Dynamic Item Rows will be inserted here via jQuery -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="modal-footer bg-light px-4 py-3">
+                    <button type="button" class="btn btn-secondary px-4 rounded-3" data-bs-dismiss="modal">
+                        <i class="fa-solid fa-xmark me-1"></i> Cancel
+                    </button>
+                    <button type="submit" id="btnSaveOrder" class="btn btn-primary-custom px-4">
+                        <i class="fa-solid fa-floppy-disk me-1"></i> Save Forms
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+

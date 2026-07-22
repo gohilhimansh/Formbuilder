@@ -1,0 +1,197 @@
+﻿USE [master]
+GO
+/****** Object:  Database [Formbuilder]    Script Date: 22-07-2026 20:21:49 ******/
+CREATE DATABASE [Formbuilder]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'Formbuilder', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\Formbuilder.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'Formbuilder_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL16.MSSQLSERVER\MSSQL\DATA\Formbuilder_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT, LEDGER = OFF
+GO
+ALTER DATABASE [Formbuilder] SET COMPATIBILITY_LEVEL = 160
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [Formbuilder].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [Formbuilder] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [Formbuilder] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [Formbuilder] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [Formbuilder] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [Formbuilder] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [Formbuilder] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [Formbuilder] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [Formbuilder] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [Formbuilder] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [Formbuilder] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [Formbuilder] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [Formbuilder] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [Formbuilder] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [Formbuilder] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [Formbuilder] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [Formbuilder] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [Formbuilder] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [Formbuilder] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [Formbuilder] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [Formbuilder] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [Formbuilder] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [Formbuilder] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [Formbuilder] SET RECOVERY FULL 
+GO
+ALTER DATABASE [Formbuilder] SET  MULTI_USER 
+GO
+ALTER DATABASE [Formbuilder] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [Formbuilder] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [Formbuilder] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [Formbuilder] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [Formbuilder] SET DELAYED_DURABILITY = DISABLED 
+GO
+ALTER DATABASE [Formbuilder] SET ACCELERATED_DATABASE_RECOVERY = OFF  
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'Formbuilder', N'ON'
+GO
+ALTER DATABASE [Formbuilder] SET QUERY_STORE = ON
+GO
+ALTER DATABASE [Formbuilder] SET QUERY_STORE (OPERATION_MODE = READ_WRITE, CLEANUP_POLICY = (STALE_QUERY_THRESHOLD_DAYS = 30), DATA_FLUSH_INTERVAL_SECONDS = 900, INTERVAL_LENGTH_MINUTES = 60, MAX_STORAGE_SIZE_MB = 1000, QUERY_CAPTURE_MODE = AUTO, SIZE_BASED_CLEANUP_MODE = AUTO, MAX_PLANS_PER_QUERY = 200, WAIT_STATS_CAPTURE_MODE = ON)
+GO
+USE [Formbuilder]
+GO
+/****** Object:  Table [dbo].[FormFiledMap]    Script Date: 22-07-2026 20:21:49 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FormFiledMap](
+	[FormFiledMapId] [int] IDENTITY(1,1) NOT NULL,
+	[FormsMasterId] [int] NULL,
+	[FieldOptionId] [int] NULL,
+	[FieldId] [int] NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[FormFiledMapId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[FormsMaster]    Script Date: 22-07-2026 20:21:50 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FormsMaster](
+	[FormsMasterId] [int] IDENTITY(1,1) NOT NULL,
+	[FormName] [varchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[FormsMasterId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblField]    Script Date: 22-07-2026 20:21:50 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblField](
+	[FieldId] [int] IDENTITY(1,1) NOT NULL,
+	[FieldName] [varchar](100) NOT NULL,
+	[InputType] [varchar](100) NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[FieldId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblFieldOption]    Script Date: 22-07-2026 20:21:50 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblFieldOption](
+	[FieldOptionId] [int] IDENTITY(1,1) NOT NULL,
+	[FieldId] [int] NOT NULL,
+	[OptionTitle] [varchar](1000) NULL,
+	[Isrequired] [bit] NOT NULL,
+PRIMARY KEY CLUSTERED 
+(
+	[FieldOptionId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[FormsMaster] ON 
+GO
+INSERT [dbo].[FormsMaster] ([FormsMasterId], [FormName]) VALUES (2, N'Test Form')
+GO
+SET IDENTITY_INSERT [dbo].[FormsMaster] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblField] ON 
+GO
+INSERT [dbo].[tblField] ([FieldId], [FieldName], [InputType]) VALUES (1, N'Name', N'Text')
+GO
+INSERT [dbo].[tblField] ([FieldId], [FieldName], [InputType]) VALUES (2, N'Email,', N'Email')
+GO
+INSERT [dbo].[tblField] ([FieldId], [FieldName], [InputType]) VALUES (3, N'Gender,', N'Dropdown')
+GO
+SET IDENTITY_INSERT [dbo].[tblField] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblFieldOption] ON 
+GO
+INSERT [dbo].[tblFieldOption] ([FieldOptionId], [FieldId], [OptionTitle], [Isrequired]) VALUES (3, 1, N'Name', 0)
+GO
+INSERT [dbo].[tblFieldOption] ([FieldOptionId], [FieldId], [OptionTitle], [Isrequired]) VALUES (4, 2, N'Email', 0)
+GO
+SET IDENTITY_INSERT [dbo].[tblFieldOption] OFF
+GO
+ALTER TABLE [dbo].[tblFieldOption] ADD  DEFAULT ((0)) FOR [Isrequired]
+GO
+ALTER TABLE [dbo].[FormFiledMap]  WITH CHECK ADD  CONSTRAINT [FK_FormFiledMap_FormsMaster] FOREIGN KEY([FormsMasterId])
+REFERENCES [dbo].[FormsMaster] ([FormsMasterId])
+GO
+ALTER TABLE [dbo].[FormFiledMap] CHECK CONSTRAINT [FK_FormFiledMap_FormsMaster]
+GO
+ALTER TABLE [dbo].[FormFiledMap]  WITH CHECK ADD  CONSTRAINT [FK_FormFiledMap_tblField] FOREIGN KEY([FieldId])
+REFERENCES [dbo].[tblField] ([FieldId])
+GO
+ALTER TABLE [dbo].[FormFiledMap] CHECK CONSTRAINT [FK_FormFiledMap_tblField]
+GO
+ALTER TABLE [dbo].[FormFiledMap]  WITH CHECK ADD  CONSTRAINT [FK_FormFiledMap_tblFieldOption] FOREIGN KEY([FieldOptionId])
+REFERENCES [dbo].[tblFieldOption] ([FieldOptionId])
+GO
+ALTER TABLE [dbo].[FormFiledMap] CHECK CONSTRAINT [FK_FormFiledMap_tblFieldOption]
+GO
+ALTER TABLE [dbo].[tblFieldOption]  WITH CHECK ADD  CONSTRAINT [FK_tblFieldOption_tblField] FOREIGN KEY([FieldId])
+REFERENCES [dbo].[tblField] ([FieldId])
+GO
+ALTER TABLE [dbo].[tblFieldOption] CHECK CONSTRAINT [FK_tblFieldOption_tblField]
+GO
+USE [master]
+GO
+ALTER DATABASE [Formbuilder] SET  READ_WRITE 
+GO
